@@ -1,0 +1,171 @@
+<div class="flex flex-col w-full">
+
+    <!-- Edit mode -->
+
+    <ng-container>
+
+        <div class="relative flex flex-col items-center flex-auto px-6 sm:px-12">
+            <div class="w-full max-w-3xl">
+                <form
+                    [formGroup]="myForm"
+                    *ngIf="myForm"
+                >
+
+                <h1 class="mt-6 mb-10 ml-1 text-[#887B84] text-3xl font-semibold">  Creation d'un Classe</h1>
+                    <div class="mt-2">
+                        <ng-container>
+                            <div class="flex">
+
+                                <mat-form-field class="flex-auto ml-2">
+                                    <mat-label>Nom</mat-label>
+                                    <mat-icon
+                                        matPrefix
+                                        class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:user-circle'"
+                                    ></mat-icon>
+
+                                    <input
+                                        matInput
+                                        formControlName='nom'
+                                        placeholder='Nom'
+                                        [spellcheck]="false"
+                                    >
+
+                                </mat-form-field>
+
+                            </div>
+                        </ng-container>
+
+                    </div>
+
+                    <div class="mt-2">
+                        <mat-form-field class="w-full">
+                            <mat-label>Type</mat-label>
+                            <mat-icon
+                                matPrefix
+                                class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:tag'"
+                            ></mat-icon>
+
+                            <mat-select
+                                matNativeControl
+                                formControlName='type'
+                                (selectionChange)="choosenType($event.value)"
+                            >
+                                <!-- <mat-option [value]="'all'">Choose</mat-option> -->
+                                <ng-container *ngFor="let type of types">
+                                    <mat-option [value]="type">{{type}}</mat-option>
+                                </ng-container>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mt-2">
+                        <mat-form-field class="w-full">
+                            <mat-label>Spécialité</mat-label>
+                            <mat-icon
+                                matPrefix
+                                class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:tag'"
+                            ></mat-icon>
+
+                            <mat-select
+                                matNativeControl
+                                formControlName='Specialite'
+                            >
+                                <!-- <mat-option [value]="'all'">Choose</mat-option> -->
+                                <ng-container *ngFor="let spec of specialityArray.choix">
+                                    <mat-option [value]="spec">{{spec}}</mat-option>
+                                </ng-container>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </div>
+
+
+
+                    <div class="mt-2">
+                        <mat-form-field class="w-full">
+                            <mat-label>Profs</mat-label>
+                            <mat-icon
+                                matPrefix
+                                class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:tag'"
+                            ></mat-icon>
+
+                            <mat-select
+                                matNativeControl
+                                formControlName='IdUser'
+                            >
+                                <!-- <mat-option [value]="'all'">Choose</mat-option> -->
+                                <ng-container *ngFor="let prof of profs">
+                                    <mat-option [value]="prof.id">{{prof.nom}} {{prof.prenom}}</mat-option>
+                                </ng-container>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </div>
+                    <div class="mt-2">
+                        <mat-form-field class="w-full">
+                            <mat-label>Nombre d'étudiants </mat-label>
+                            <mat-icon
+                                matPrefix
+                                class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:tag'"
+                            ></mat-icon>
+                            <input type="number"
+                                matInput
+                                formControlName='studentsCount'
+                            >
+                        </mat-form-field>
+                    </div>
+                    <div class="mt-2">
+
+                        <mat-form-field
+                            class="w-full mt-2 "
+                            [subscriptSizing]="'dynamic'"
+                        >
+                            <mat-label>Salle</mat-label>
+
+                            <input
+                                matInput
+                                formControlName='salle'
+                            >
+                        </mat-form-field>
+
+                    </div>
+
+    <app-emploi #emploiComponent></app-emploi>
+
+
+
+
+                    <div class="flex items-center py-4 pl-1 pr-4 mt-10 -mx-6 border-t sm:-mx-12 sm:pr-12 sm:pl-7 bg-gray-50 dark:bg-transparent">
+                        <!-- Delete -->
+
+                        <!-- Cancel -->
+                        <button
+                            class="ml-auto text-[#887B84]"
+                            mat-button
+                            [matTooltip]="'Cancel'"
+                            (click)="toggleEditMode()"
+                        >
+                            Annuler
+                        </button>
+                        <!-- Save -->
+                        <button
+                            class="ml-2 bg-[#2E849D] text-white"
+                            mat-flat-button
+                            [matTooltip]="'Save'"
+                            (click)="submit(myForm.value)"
+                        >
+                            Enregistrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ng-container>
+</div>
+

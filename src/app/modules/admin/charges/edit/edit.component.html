@@ -1,0 +1,103 @@
+<div class="flex flex-col w-full">
+
+
+    <ng-container>
+
+        <!-- Contact form -->
+        <div class="relative flex flex-col items-center flex-auto px-6 sm:px-12">
+            <div class="w-full max-w-3xl">
+                <form [formGroup]="myForm" *ngIf="myForm">
+
+
+
+                    <div class="mt-2">
+                        <h1 class="mt-6 mb-10 ml-1 text-[#887B84] text-3xl font-semibold"> Modifier une Charge</h1>
+
+
+                    </div>
+
+                    <!-- prenom -->
+                    <div class="mt-2">
+                        <div class="space-y-4">
+                            <div class="relative flex">
+                                <!-- <mat-form-field class="flex-auto" [subscriptSizing]="'dynamic'">
+                                    <mat-label>Date</mat-label>
+
+                                    <input
+                                      type="date"
+                                      [formControlName]="'year'"
+                                      class="w-full px-4 py-4 leading-tight text-gray-700 bg-white border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    >
+
+                                  </mat-form-field> -->
+                                <mat-form-field class="flex-auto" [subscriptSizing]="'dynamic'">
+                                    <mat-label>Date (Mois/Jours/Annee)</mat-label>
+                                    <input matInput [matDatepicker]="picker2" [(ngModel)]="date"
+                                        [ngModelOptions]="{standalone: true}">
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2></mat-datepicker>
+                                </mat-form-field>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="space-y-4">
+                            <div class="relative flex">
+                                <mat-form-field class="flex-auto" [subscriptSizing]="'dynamic'">
+                                    <mat-label>Designation</mat-label>
+                                     <input matInput formControlName="designation" placeholder="designation" [spellcheck]="false">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="mt-2">
+                        <div class="space-y-4">
+                            <div class="relative flex">
+                                <mat-form-field class="flex-auto" [subscriptSizing]="'dynamic'">
+                                    <mat-label>Montant</mat-label>
+                                    <input matInput formControlName="montant" [placeholder]="'montant'"
+                                        [spellcheck]="false">
+
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div
+                        class="flex items-center py-4 pl-1 pr-4 mt-10 -mx-6 border-t sm:-mx-12 sm:pr-12 sm:pl-7 bg-gray-50 dark:bg-transparent">
+                        <!-- Delete -->
+                        <button
+                        mat-button
+                        [color]="'warn'"
+                        [matTooltip]="'Delete'"
+                        (click)="delete()"
+                    >
+                        Supprimer
+                    </button>
+                        <!-- Cancel -->
+                        <button class="ml-auto" mat-button [matTooltip]="'Cancel'" (click)="toggleEditMode()">
+                            Annuler
+                        </button>
+                        <!-- Save -->
+                        <!-- [disabled]="myForm.invalid" -->
+                        <button class="ml-2" mat-flat-button
+                        class="ml-2 bg-[#2E849D] text-white"
+                         [matTooltip]="'Save'"
+                            (click)="update()">
+                            Enregistrer
+
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ng-container>
+</div>

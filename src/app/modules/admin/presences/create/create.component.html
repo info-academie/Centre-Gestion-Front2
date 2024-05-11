@@ -1,0 +1,123 @@
+<div class="flex flex-col w-full">
+
+
+    <ng-container>
+
+        <!-- Contact form -->
+        <div class="relative flex flex-col items-center flex-auto px-6 sm:px-12">
+            <div class="w-full max-w-3xl">
+                <form [formGroup]="myForm">
+
+
+
+                    <div class="mt-2">
+                        <h1 class="mt-6 mb-10 ml-1  text-[#8B7F87] text-3xl font-semibold"> Creation d'un fichier de
+                            presence</h1>
+                        <mat-form-field class="w-full mt-2 " [subscriptSizing]="'dynamic'">
+                            <mat-label>Classes</mat-label>
+
+                            <mat-select [formControlName]="'idClass'">
+                                <!-- <mat-option [value]="'all'">Choose</mat-option> -->
+                                <ng-container *ngFor="let class of classes">
+                                    <mat-option [value]="class.id">Class {{class.nom}}</mat-option>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+
+
+                    <div class="mt-2">
+                        <mat-form-field class="w-full mt-2 " [subscriptSizing]="'dynamic'">
+                            <mat-label>Profs</mat-label>
+
+                            <mat-select [formControlName]="'idUser'">
+                                <!-- <mat-option [value]="'all'">Choose</mat-option> -->
+                                <ng-container *ngFor="let prof of profs">
+                                    <mat-option [value]="prof.id"> {{prof.nom}}</mat-option>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="mt-2">
+                        <mat-form-field class="w-full">
+                            <mat-label>Annee</mat-label>
+                            <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:tag'"></mat-icon>
+                            <input matInput formControlName='year' placeholder='year' [spellcheck]="false">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mt-2">
+                        <mat-form-field class="w-full">
+                            <mat-label>Mois</mat-label>
+                            <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:tag'"></mat-icon>
+                            <mat-select [formControlName]="'month'">
+                                <ng-container *ngFor="let month of months">
+                                    <mat-option [value]="month">{{month}}</mat-option>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <button class="ml-auto bg-gray-200" mat-button [matTooltip]="'Cancel'"
+                        (click)="generateListPresence()">
+                        Generer liste de presence
+                    </button>
+
+                    <br>
+<!--
+    Here the code down 
+--><div *ngIf="isGenerated" class="mt-4">
+    <div class="overflow-x-auto">
+        <table class="w-full whitespace-nowrap">
+            <tbody>
+                <tr>
+                    <th scope="col" class="text-[#8B7F87] text-xl">Client / Jours</th>
+                    <ng-container *ngFor="let col of columns">
+                        <th scope="col" class="text-[#8B7F87] ">
+                            <input type="date"
+                                (change)="registerPresence($event.target.value, '', col, 'date')"
+                                class="border border-gray-300 w-full  rounded-md px-2 py-1">
+                        </th>
+                    </ng-container>
+                </tr>
+
+                <tr class="font-normal" *ngFor="let student of listOfSudents">
+                    <th scope="row" class="p-2 font-normal">{{ student.nom }} {{ student.prenom }}</th>
+                    <ng-container *ngFor="let col of columns">
+                        <td>
+                            <input type="checkbox" class="form-checkbox border border-gray-300 rounded"
+                                (change)="registerPresence($event.target.checked, student.id, col, 'presence')">
+                        </td>
+                    </ng-container>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button (click)="addColumn()" class="ml-auto bg-gray-300 " mat-button [matTooltip]="'Add Column'">+</button>
+</div>
+
+
+                    <div
+                        class="flex items-center py-4 pl-1 pr-4 mt-10 -mx-6 border-t sm:-mx-12 sm:pr-12 sm:pl-7 bg-gray-50 dark:bg-transparent">
+                        <!-- Delete -->
+
+                        <!-- Cancel -->
+                        <button class="ml-auto" mat-button [matTooltip]="'Cancel'" (click)="toggleEditMode()">
+                            Annuler
+                        </button>
+                        <!-- Save -->
+                        <button class="ml-2 bg-[#2E849D] text-white" mat-flat-button [matTooltip]="'Save'"
+                            (click)="submit(myForm.value)">
+                            Enregistrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ng-container>
+</div>

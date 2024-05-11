@@ -1,0 +1,120 @@
+<div class="flex flex-col w-full">
+
+
+    <ng-container>
+
+        <!-- Contact form -->
+        <div class="relative flex flex-col items-center flex-auto px-6 sm:px-12">
+            <div class="w-full max-w-3xl">
+                <form [formGroup]="myForm">
+
+
+
+                    <div class="mt-2">
+                        <h1 class="mt-6 mb-10 ml-1  text-[#8B7F87] text-3xl font-semibold">  Creation d'un Client</h1>
+
+                            <ng-container>
+                                <div class="flex">
+                                    <mat-form-field class="flex-auto ml-2">
+                                        <mat-label>Nom</mat-label>
+                                        <mat-icon
+                                            matPrefix
+                                            class="hidden sm:flex icon-size-5"
+                                            [svgIcon]="'heroicons_solid:user-circle'"
+                                        ></mat-icon>
+
+                                        <input
+                                            matInput
+                                            formControlName='nom'
+                                            placeholder='Nom'
+                                            [spellcheck]="false"
+                                              >
+
+                                    </mat-form-field>
+
+
+                                </div>
+                            </ng-container>
+
+                    </div>
+
+
+                    <div class="mt-2">
+                        <mat-form-field class="w-full">
+                            <mat-label>Prenom</mat-label>
+                            <mat-icon
+                                matPrefix
+                                class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:tag'"
+                            ></mat-icon>
+                            <input
+                                matInput
+                                formControlName='prenom'
+                                placeholder='Prenom'
+                                [spellcheck]="false"
+                            >
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mt-2">
+                        <mat-form-field class="w-full">
+                            <mat-label>Telephone</mat-label>
+                            <mat-icon
+                                matPrefix
+                                class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:tag'"
+                            ></mat-icon>
+                            <input
+                                matInput
+                                formControlName='telephone'
+                                placeholder='Telephone'
+                                [spellcheck]="false"
+                            >
+                        </mat-form-field>
+                    </div>
+
+                    <mat-form-field
+
+                    class="w-full mt-2 "
+                    [subscriptSizing]="'dynamic'">
+                    <mat-label>Classes</mat-label>
+
+                    <mat-select
+
+                        [formControlName]="'idClass'"
+                        (selectionChange)="idClassValue($event.value)"
+                        >
+                        <!-- <mat-option [value]="'all'">Choose</mat-option> -->
+                        <ng-container *ngFor="let class of classes">
+                            <mat-option [value]="class.id">Class {{class.nom}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                    </mat-form-field>
+
+
+                    <div class="flex items-center py-4 pl-1 pr-4 mt-10 -mx-6 border-t sm:-mx-12 sm:pr-12 sm:pl-7 bg-gray-50 dark:bg-transparent">
+                        <!-- Delete -->
+
+                        <!-- Cancel -->
+                        <button
+                        class="ml-auto"
+                        mat-button
+                        [matTooltip]="'Cancel'"
+                        (click)="toggleEditMode()">
+                        Annuler
+                    </button>
+                    <!-- Save -->
+                    <button
+                        class="ml-2 bg-[#2E849D] text-white"
+                        mat-flat-button
+                        [matTooltip]="'Save'"
+                        [disabled]="myForm.invalid"
+                        (click)="submit(myForm.value)">
+                        Enregistrer
+                    </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ng-container>
+</div>

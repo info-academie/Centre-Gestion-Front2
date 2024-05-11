@@ -1,0 +1,88 @@
+<div class="flex flex-col w-full">
+
+
+    <ng-container>
+
+        <!-- Contact form -->
+        <div class="relative flex flex-col items-center flex-auto px-6 sm:px-12">
+            <div class="w-full max-w-3xl">
+                <form [formGroup]="myForm" *ngIf="myForm">
+
+
+
+                    <div class="mt-2">
+                        <h1 class="mt-6 mb-10 ml-1 text-[#887B84] text-3xl font-semibold"> Modifier une Caisse</h1>
+
+                        <ng-container>
+                            <div class="flex">
+                                <mat-form-field class="flex-auto ml-2">
+                                    <mat-label>Année</mat-label>
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+
+                                    <input matInput formControlName='year' placeholder='year' [spellcheck]="false">
+
+                                </mat-form-field>
+
+
+                            </div>
+                        </ng-container>
+
+                    </div>
+
+
+                    <div class="mt-2">
+                        <mat-form-field class="w-full mt-2 " [subscriptSizing]="'dynamic'">
+                            <mat-label>Mois</mat-label>
+
+                            <mat-select [formControlName]="'month'">
+                                <ng-container *ngFor="let month of months">
+                                    <mat-option [value]="month">{{month}}</mat-option>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="mt-6 overflow-hidden bg-white rounded shadow-md">
+
+                        <div class="px-4 py-5 sm:p-6">
+                          <ng-container>
+                            <div class="space-y-2">
+                                <h2 class="text-[1.1rem]">Le Total de ressources : <b class="text-[1rem] text-[#918ec9]"> {{response.sumRessource}} </b></h2>
+                              <h2 class="text-[1.1rem]">Le Total de charges : <b class="text-[1rem] text-[#918ec9]"> {{response.sumCharges}} </b></h2>
+                              <h2 class="text-[1.1rem]">Le Bilan : <b class="text-[1rem] text-[#918ec9]" > {{response.bilan.montant}} </b></h2>
+                              <h2 class="text-[1.1rem]">Le Montant Total : <b class="text-[1rem] text-[#918ec9]" > {{response.net}} </b></h2>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </div>
+
+
+                    <div
+                        class="flex items-center py-4 pl-1 pr-4 mt-10 -mx-6 border-t sm:-mx-12 sm:pr-12 sm:pl-7 bg-gray-50 dark:bg-transparent">
+                        <!-- Delete -->
+
+                        <!-- Cancel -->
+                        <button class="ml-auto" mat-button [matTooltip]="'Cancel'" (click)="toggleEditMode()">
+                            Retour
+                        </button>
+                        <!-- Save -->
+                        <button class="ml-2" mat-flat-button
+                        class="ml-2 bg-[#2E849D]"
+                        [matTooltip]="'Save'"
+                            (click)="update(myForm.value)">
+                            Enregistrer
+                        </button>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+
+        <div class="flex flex-col flex-auto overflow-hidden shadow xl:col-span-2 bg-card rounded-2xl">
+
+
+        </div>
+
+    </ng-container>
+</div>

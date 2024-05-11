@@ -1,0 +1,112 @@
+<div class="flex flex-col w-full">
+
+
+    <ng-container>
+
+        <!-- Contact form -->
+        <div class="relative flex flex-col items-center flex-auto px-6 sm:px-12">
+            <div class="w-full max-w-3xl">
+                <form [formGroup]="myForm" *ngIf="myForm">
+
+
+
+                    <div class="mt-2">
+                        <h1 class="mt-6 mb-10 ml-1 text-[#887B84] text-3xl font-semibold"> Creation d'un Payment</h1>
+
+
+                    </div>
+
+                    <!-- prenom -->
+                    <div class="mt-2">
+                        <div class="space-y-4">
+                            <div class="relative flex">
+
+                                <mat-form-field class="flex-auto" [subscriptSizing]="'dynamic'">
+                                    <mat-label>Date (Mois/Jours/Annee)</mat-label>
+                                    <input matInput [matDatepicker]="picker2" [(ngModel)]="date"
+                                        [ngModelOptions]="{standalone: true}">
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2></mat-datepicker>
+                                </mat-form-field>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="space-y-4">
+                            <div class="relative flex">
+                                <mat-form-field class="flex-auto" [subscriptSizing]="'dynamic'">
+                                    <mat-label>Class</mat-label>
+                                    <mat-select [formControlName]="'idClass'"  [(value)]="choosenClass">
+                                        <ng-container *ngFor="let role of allClasses">
+                                            <mat-option [value]="role.id">{{role.nom}}</mat-option>
+                                        </ng-container>
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-2">
+                        <div class="space-y-4">
+                            <div class="relative flex">
+                                <mat-form-field class="flex-auto" [subscriptSizing]="'dynamic'">
+                                    <mat-label>Client</mat-label>
+                                    <mat-select [formControlName]="'idClient'" [(value)]="choosenClient">
+                                        <ng-container *ngFor="let role of allClients" >
+                                            <mat-option [value]="role.id">{{role.nom}} {{role.prenom}}</mat-option>
+                                        </ng-container>
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-2">
+                        <mat-form-field class="w-full">
+                            <mat-label>Montant</mat-label>
+                            <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:tag'"></mat-icon>
+                            <input matInput formControlName='montant' [placeholder]="'montant'"
+                                >
+
+                        </mat-form-field>
+                    </div>
+
+
+
+
+                    <div
+                        class="flex items-center py-4 pl-1 pr-4 mt-10 -mx-6 border-t sm:-mx-12 sm:pr-12 sm:pl-7 bg-gray-50 dark:bg-transparent">
+                        <!-- Delete -->
+                        <button
+                        mat-button
+                        [color]="'warn'"
+                        [matTooltip]="'Delete'"
+                        (click)="delete()"
+                    >
+                        Supprimer
+                    </button>
+                        <!-- Cancel -->
+                        <button class="ml-auto" mat-button [matTooltip]="'Cancel'" (click)="toggleEditMode()">
+                            Annuler
+                        </button>
+                        <!-- Save -->
+                        <!-- [disabled]="myForm.invalid" -->
+                        <button class="ml-2"
+                              class="ml-2 bg-[#2E849D] text-white"
+
+                        mat-flat-button [color]="'primary'" [matTooltip]="'Save'"
+                            (click)="update(myForm.value)">
+                            Enregistrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ng-container>
+</div>
