@@ -68,38 +68,42 @@
                     </button>
 
                     <br>
-<!--
+                    <!--
     Here the code down 
---><div *ngIf="isGenerated" class="mt-4">
-    <div class="overflow-x-auto">
-        <table class="w-full whitespace-nowrap">
-            <tbody>
-                <tr>
-                    <th scope="col" class="text-[#8B7F87] text-xl">Client / Jours</th>
-                    <ng-container *ngFor="let col of columns">
-                        <th scope="col" class="text-[#8B7F87] ">
-                            <input type="date"
-                                (change)="registerPresence($event.target.value, '', col, 'date')"
-                                class="border border-gray-300 w-full  rounded-md px-2 py-1">
-                        </th>
-                    </ng-container>
-                </tr>
+-->
+                    <div *ngIf="isGenerated" class="mt-4">
+                        <div class="overflow-x-auto">
+                            <table class="w-full whitespace-nowrap">
+                                <tbody>
+                                    <tr>
+                                        <th scope="col" class="text-[#8B7F87] text-xl">Client / Jours</th>
+                                        <ng-container *ngFor="let col of columns">
+                                            <th scope="col" class="text-[#8B7F87] ">
+                                                <input type="date"
+                                                    (change)="registerPresence($event.target.value, '', col, 'date')"
+                                                    class="border border-gray-300 w-full  rounded-md px-2 py-1">
+                                            </th>
+                                        </ng-container>
+                                    </tr>
 
-                <tr class="font-normal" *ngFor="let student of listOfSudents">
-                    <th scope="row" class="p-2 font-normal">{{ student.nom }} {{ student.prenom }}</th>
-                    <ng-container *ngFor="let col of columns">
-                        <td>
-                            <input type="checkbox" class="form-checkbox border border-gray-300 rounded"
-                                (change)="registerPresence($event.target.checked, student.id, col, 'presence')">
-                        </td>
-                    </ng-container>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                                    <tr class="font-normal" *ngFor="let student of listOfSudents">
+                                        <th scope="row" class="p-2 font-normal">{{ student.nom }} {{ student.prenom }}
+                                        </th>
+                                        <ng-container *ngFor="let col of columns">
+                                            <td>
+                                                <input type="checkbox"
+                                                    class="form-checkbox border border-gray-300 rounded"
+                                                    (change)="registerPresence($event.target.checked, student.id, col, 'presence')">
+                                            </td>
+                                        </ng-container>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-    <button (click)="addColumn()" class="ml-auto bg-gray-300 " mat-button [matTooltip]="'Add Column'">+</button>
-</div>
+                        <button (click)="addColumn()" class="ml-auto bg-gray-300 " mat-button
+                            [matTooltip]="'Add Column'">+</button>
+                    </div>
 
 
                     <div
@@ -111,8 +115,8 @@
                             Annuler
                         </button>
                         <!-- Save -->
-                        <button class="ml-2 bg-[#2E849D] text-white" mat-flat-button [matTooltip]="'Save'"
-                            (click)="submit(myForm.value)">
+                        <button class="ml-2 bg-[#2E849D] text-white" [disabled]="myForm.invalid" mat-flat-button
+                            [matTooltip]="'Save'" (click)="submit(myForm.value)">
                             Enregistrer
                         </button>
                     </div>

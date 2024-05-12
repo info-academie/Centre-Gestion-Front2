@@ -57,11 +57,10 @@ export class CreatePresenceComponent {
     isGenerated: boolean = false;
     columns: number[] = [];
 
+
     addColumn() {
         const newColumnName = this.columns.length;
-        const newColumn = `<input type='date' class="border rounded-md px-2 py-1" />`;
         this.columns.push(newColumnName); // for date
-
         this.presenceArray.push({ date: null, presentStudents: [] });
     }
     calculateTotal(colIndex: number): number {
@@ -137,7 +136,7 @@ export class CreatePresenceComponent {
             ],
             idClass: [this.presence.idClass, Validators.required],
             idUser: [this.presence.idUser, Validators.required],
-            presences: [this.presence.presences, Validators.required],
+            presences: [this.presence.presences],
         });
     }
     toggleEditMode() {
