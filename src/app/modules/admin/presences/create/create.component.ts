@@ -65,17 +65,10 @@ export class CreatePresenceComponent {
         this.presenceArray.push({ date: null, presentStudents: [] });
     }
     calculateTotal(colIndex: any): number {
-      /*  let total = 0;
-        for (const student of this.listOfSudents) {
-          const presenceObj = this.presenceArray[colIndex];
-          if (presenceObj && presenceObj.presentStudents.includes(student.id)) {
-            total++;
-          }
-        }
-        return total;*/
+
         return colIndex.presentStudents.length
       }
-      
+
     ngOnInit(): void {
         this.uow.presences.getInputsData().subscribe((res: any) => {
             this.classes = res.classes;
@@ -125,7 +118,7 @@ export class CreatePresenceComponent {
             }
         }
         this.calculTotal(presenceObj)
-   
+
     }
     calculTotal(object){
 return object.presentStudents.length;

@@ -26,6 +26,10 @@ export class CreateBilanComponent {
     id: any = 0;
     isProf: boolean = false;
     myForm: FormGroup;
+
+    year:number
+    month:string
+
     // classes: Class[] = []
     months = [
         'janvier',

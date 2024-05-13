@@ -11,6 +11,10 @@ export class RessourceService extends SuperService<Ressource> {
         super('ressource');
 
     }
+    filter(year , month) : Observable <any> {
+        return this.http.get(`${this.urlApi}/${this.controller}/Filter/${year}/${month}`)
+
+    }
     getRessources(): Observable<any> {
         return this.http.get(`${this.urlApi}/${this.controller}/GetAll`)
 

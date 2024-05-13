@@ -32,7 +32,7 @@ export class EditPresenceComponent {
   columns: number[] = [];
   col=0
   addColumn() {
-  
+
     const newColumnName = this.columns.length;
     this.columns.push(newColumnName); // for date
     this.presenceArray.push({ date: null, presentStudents: [] });
@@ -59,7 +59,7 @@ togglePresence(checked: boolean, studentId: number, col: any) {
 
   }
 console.log(this.presenceArray)
- 
+
 }
 
 
@@ -78,6 +78,7 @@ console.log(this.presenceArray)
     'novembre',
     'décembre',
   ];
+
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder
@@ -85,15 +86,9 @@ console.log(this.presenceArray)
     public uow: UowService
 
   ) { }
-  calculateTotal(colIndex: number): number {
-    let total = 0;
-    for (const student of this.listOfSudents) {
-      const presenceObj = this.presenceArray[colIndex];
-      if (presenceObj && presenceObj.presentStudents.includes(student.id)) {
-        total++;
-      }
-    }
-    return total;
+  calculateTotal(colIndex: any): number {
+
+    return colIndex.presentStudents.length
   }
   isStudentPresent(studentId: number, arrayPresentStudents) {
 

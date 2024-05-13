@@ -14,34 +14,58 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {  FormsModule } from '@angular/forms';
+import { MatModule } from 'app/mat.module';
 
 @Component({
-  selector: 'app-ressources',
-  standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule,
-    MatPaginatorModule,
-    MatMenuModule, MatDividerModule, NgApexchartsModule,
-    MatTableModule, MatSortModule, NgClass,
-    RouterModule,
-    MatProgressBarModule, CurrencyPipe, DatePipe],
-      templateUrl: './ressources.component.html',
-  styleUrls: ['./ressources.component.scss']
+    selector: 'app-ressources',
+    standalone: true,
+    imports: [CommonModule, MatButtonModule, MatIconModule,
+        MatPaginatorModule,
+        MatModule,
+        MatMenuModule, MatDividerModule, NgApexchartsModule,
+        MatTableModule, MatSortModule, NgClass,
+        RouterModule,
+        FormsModule,
+        MatProgressBarModule, CurrencyPipe, DatePipe],
+    templateUrl: './ressources.component.html',
+    styleUrls: ['./ressources.component.scss']
 })
 export class RessourcesComponent {
     @ViewChild('recentTransactionsTable', { read: MatSort })
     recentTransactionsTableMatSort: MatSort;
+    isSearchBarOpened: boolean = false
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     count = 0;
     paginatorEvent = new Subject<PageEvent>(/*{ pageIndex: 0, pageSize: 5, length: 0 }*/);
     list: User[] = [];
- total: number;
+    total: number;
 
     data: any;
     accountBalanceOptions: ApexOptions;
     recentTransactionsDataSource: MatTableDataSource<any> = new MatTableDataSource();
-    recentTransactionsTableColumns: string[] = [ 'Annee',
-        'Mois','Nom Client', 'Classe','Montant','Actions'];
+    recentTransactionsTableColumns: string[] = ['Annee',
+        'Mois', 'Nom Client', 'Classe', 'Montant'];
+        year:string
+        month:string
+
+        // classes: Class[] = []
+        months = [
+            'janvier',
+            'février',
+            'mars',
+            'avril',
+            'mai',
+            'juin',
+            'juillet',
+            'août',
+            'septembre',
+            'octobre',
+            'novembre',
+            'décembre'
+        ];
+
 
     //  'email', 'Matiere', 'actions'];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -53,9 +77,12 @@ export class RessourcesComponent {
 
     constructor(private uow: UowService) {
     }
+    openSearchBar() {
+        this.isSearchBarOpened ? this.isSearchBarOpened = false : this.isSearchBarOpened = true
+    }
     delete(id) {
         console.log(id)
-        this.uow.ressources.delete(id).subscribe((e) => {
+        this.uow.payments.delete(id).subscribe((e) => {
             console.log(e)
             e ?
                 this.ngOnInit() : console.error("Error while deleting ")
@@ -69,9 +96,10 @@ export class RessourcesComponent {
     /**
      * On init
      */
+
     ngOnInit(): void {
         // Get the data
-        this.uow.ressources.getAll()
+        this.uow.payments.getAll()
             .subscribe((data) => {
                 // Store the data
                 this.data = data;
@@ -108,15 +136,18 @@ export class RessourcesComponent {
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
+    submit() {
 
-    /**
-     * Track by function for ngFor loops
-     *
-     * @param index
-     * @param item
-     */
-    trackByFn(index: number, item: any): any {
-        return item.id || index;
+
+
+        this.uow.ressources.filter(this.year, this.month).subscribe((res: any) => {
+            this.recentTransactionsDataSource.data = res
+            this.total = res.reduce((accumulator, currentValue) => {
+                return accumulator + currentValue.montant;
+            }, 0);
+
+        })
     }
+
 
 }
