@@ -73,7 +73,7 @@ export class CreateUserComponent {
         })
     }
     toggleEditMode() {
-        this.router.navigate(['/admin/profs']);
+        this.router.navigate(['/admin/users']);
     }
 
     submit(user: User) {

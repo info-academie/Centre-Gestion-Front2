@@ -17,11 +17,11 @@ export const defaultNavigation: FuseNavigationItem[] = [
         link : 'admin/profs'
     },
     {
-        id   : 'Presences',
-        title: 'Presence',
+        id   : 'Classes',
+        title: 'Classes',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : 'admin/presences'
+        link : 'admin/classes'
     },
     {
         id   : 'Clients',
@@ -30,21 +30,26 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link : 'admin/clients'
     },
-    {
-        id   : 'Classes',
-        title: 'Classes',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : 'admin/classes'
-    },
 
+ 
     {
         id   : 'Payments',
-        title: 'Payments',
+        title: 'Paiement',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : 'admin/payments'
     },
+    {
+        id   : 'Presences',
+        title: 'Presence',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : 'admin/presences'
+    },
+
+
+
+
 
     {
         id   : 'Charges',

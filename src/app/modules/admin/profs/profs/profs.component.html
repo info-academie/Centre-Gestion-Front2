@@ -9,7 +9,7 @@
                 <div class="font-medium tracking-tight text-secondary">Gardez la trace de vos ressources</div>
             </div>
             <div class="flex items-center ml-6">
-
+                <span class="ml-2" [routerLink]="['/admin/prof/create']">
                 <button
                     class="hidden ml-3 bg-[#2E849D] sm:inline-flex"
                     mat-flat-button
@@ -19,12 +19,90 @@
                         class="icon-size-5"
                         [svgIcon]="'heroicons_solid:arrow-up-tray'"
                     ></mat-icon>
-                    <span class="ml-2" [routerLink]="['/admin/prof/create']">Créer</span>
+                 Créer
                 </button>
+            </span>
+                <button class="ml-auto bg-gray-200" mat-button (click)="openSearchBar()">
+
+                    <mat-icon class="icon-size-5">search</mat-icon>
+                    Recherche
+                </button>
+
+            </div>
+        </div>
+
+
+        <!-- serch bar-->
+
+        <div class="flex items-center justify-between w-full mt-[2rem] transition-opacity duration-500 ease-in-out"
+        *ngIf="isSearchBarOpened" [class.opacity-100]="isSearchBarOpened" [class.opacity-0]="!isSearchBarOpened">
+        <!-- Recent transactions table -->
+        <div class="flex flex-col flex-auto overflow-hidden shadow xl:col-span-2 bg-card rounded-2xl">
+            <div class="p-6">
+
+                <div>
+                    <ng-container>
+                        <div class="flex ">
+                            <mat-form-field class="flex-auto ">
+                                <mat-label>Nom</mat-label>
+                                <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+
+                                <input matInput [(ngModel)]="nom">
+
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-auto">
+                                <mat-label>Prenom</mat-label>
+                                <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                                <input matInput [(ngModel)]="prenom" [placeholder]="'Name'"
+                                    [spellcheck]="false">
+                            </mat-form-field>
+
+                        </div>
+                    </ng-container>
+
+                    <!-- prenom -->
+                    <div class="">
+                        <mat-form-field class="w-full">
+                            <mat-label>Email</mat-label>
+                            <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
+                            <input matInput [(ngModel)]="email" [placeholder]="'email'"
+                                [spellcheck]="false">
+                        </mat-form-field>
+                    </div>
+
+                  <div class="flex justify-end items-end">
+
+
+                    <button class="ml-2 bg-[#2E849D] text-white" mat-flat-button [matTooltip]="'Save'"
+                       (click)="submit()">
+                        Enregistrer
+                    </button>
+
+                    <button class="ml-auto bg-gray-200  "  mat-flat-button [matTooltip]="'Save'"
+                    (click)="openSearchBar()">
+                     Cancel
+                 </button>
+                </div>
+
+                    <!-- </div> -->
+                </div>
+
+
+
+
 
 
             </div>
         </div>
+    </div>
+
+
+
+
 
         <div class="flex items-center justify-between w-full mt-[2rem]">
             <!-- Recent transactions table -->

@@ -62,7 +62,7 @@ export class CreateResssourceComponent {
         })
     }
     toggleEditMode() {
-        this.router.navigate(['/admin/payments']);
+        this.router.navigate(['/admin/ressources']);
     }
     any(e){
         console.log(e)

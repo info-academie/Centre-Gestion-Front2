@@ -69,7 +69,7 @@ export class CreateClassComponent {
         });
     }
     toggleEditMode() {
-        this.router.navigate(['/admin/clients']);
+        this.router.navigate(['/admin/classes']);
 
     }
     idClassValue(e) {

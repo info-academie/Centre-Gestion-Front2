@@ -56,22 +56,24 @@ export class CreatePresenceComponent {
     ];
     isGenerated: boolean = false;
     columns: number[] = [];
-
+    getTotalChecked(col){
+    }
 
     addColumn() {
         const newColumnName = this.columns.length;
         this.columns.push(newColumnName); // for date
         this.presenceArray.push({ date: null, presentStudents: [] });
     }
-    calculateTotal(colIndex: number): number {
-        let total = 0;
+    calculateTotal(colIndex: any): number {
+      /*  let total = 0;
         for (const student of this.listOfSudents) {
           const presenceObj = this.presenceArray[colIndex];
           if (presenceObj && presenceObj.presentStudents.includes(student.id)) {
             total++;
           }
         }
-        return total;
+        return total;*/
+        return colIndex.presentStudents.length
       }
       
     ngOnInit(): void {
@@ -98,6 +100,7 @@ export class CreatePresenceComponent {
         colIndex: number,
         type: string
     ) {
+
         console.log(this.presenceArray);
 
         const presenceObj = this.presenceArray[colIndex];
@@ -121,6 +124,11 @@ export class CreatePresenceComponent {
                 }
             }
         }
+        this.calculTotal(presenceObj)
+   
+    }
+    calculTotal(object){
+return object.presentStudents.length;
     }
 
     createForm() {

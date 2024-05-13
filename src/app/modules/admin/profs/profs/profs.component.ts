@@ -16,13 +16,15 @@ import { RouterModule } from '@angular/router';
 import { Subject } from 'rxjs';
 import { User } from 'app/models/User';
 import { UowService } from 'app/services/uow.service';
+import { FormsModule } from '@angular/forms';
+import { MatModule } from 'app/mat.module';
 @Component({
   selector: 'app-profs',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule,
     MatPaginatorModule,
     MatMenuModule, MatDividerModule, NgApexchartsModule,
-    MatTableModule, MatSortModule, NgClass,
+    MatTableModule, MatSortModule, NgClass,FormsModule,MatModule,
     RouterModule,
     MatProgressBarModule, CurrencyPipe, DatePipe],
   templateUrl: './profs.component.html',
@@ -37,13 +39,16 @@ export class ProfsComponent {
     count = 0;
     paginatorEvent = new Subject<PageEvent>(/*{ pageIndex: 0, pageSize: 5, length: 0 }*/);
     list: User[] = [];
+    isSearchBarOpened: boolean = false
 
     data: any;
     accountBalanceOptions: ApexOptions;
     recentTransactionsDataSource: MatTableDataSource<any> = new MatTableDataSource();
     recentTransactionsTableColumns: string[] = ['id', 'name', 'email',
         'address', 'actions'];
-
+        nom: string = ''
+        prenom: string = ''
+        email: string = ''
     //  'email', 'Matiere', 'actions'];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -51,6 +56,9 @@ export class ProfsComponent {
      * Constructor
      */
 
+    openSearchBar() {
+        this.isSearchBarOpened ? this.isSearchBarOpened = false : this.isSearchBarOpened = true
+    }
 
     constructor(private profService: ProfService,
         private uow: UowService
@@ -122,6 +130,27 @@ export class ProfsComponent {
         return item.id || index;
     }
 
+
+    submit() {
+        if (this.email === '') {
+            this.email = '*'
+        }
+
+        if (this.prenom === '') {
+            this.prenom = '*'
+        }
+        if (this.nom === '') {
+            this.nom = '*'
+        }
+
+
+
+        this.uow.profs.searchProfs(this.nom, this.prenom, this.email).subscribe((res: any) => {
+            this.recentTransactionsDataSource.data = res.query.result
+        console.log(this.recentTransactionsDataSource.data )
+
+        })
+    }
 
 
 

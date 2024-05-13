@@ -67,7 +67,7 @@
                         Generer liste de presence
                     </button>
 
-                    <br>
+                    <br>    
                     <!--
     Here the code down 
 -->
@@ -83,6 +83,7 @@
                                                     (change)="registerPresence($event.target.value, '', col, 'date')"
                                                     class="border border-gray-300 w-full  rounded-md px-2 py-1">
                                             </th>
+                                            
                                         </ng-container>
                                     </tr>
 
@@ -96,7 +97,15 @@
                                                     (change)="registerPresence($event.target.checked, student.id, col, 'presence')">
                                             </td>
                                         </ng-container>
-                                    </tr>
+                               
+                                        <tr>
+                                            <th scope="row" class="p-2 font-normal">Total</th>
+                                            <ng-container *ngFor="let col of presenceArray">
+                                                <td>{{ calculateTotal(col) }}</td>
+                                            </ng-container>
+                                        </tr>
+                                        
+
                                 </tbody>
                             </table>
                         </div>

@@ -10,6 +10,10 @@
                     <div class="font-medium tracking-tight text-secondary">Gardez la trace de vos ressources</div>
                 </div>
                 <div class="flex items-center ml-6">
+                    <span
+                        class="ml-2 "
+                        [routerLink]="['/admin/payment/create']"
+                    >
 
                     <button
                         class="hidden ml-3 sm:inline-flex bg-[#2E849D]"
@@ -20,13 +24,9 @@
                             class="icon-size-5"
                             [svgIcon]="'heroicons_solid:arrow-up-tray'"
                         ></mat-icon>
-                        <span
-                            class="ml-2 "
-                            [routerLink]="['/admin/payment/create']"
-                        >
                         Créer
-                        </span>
                     </button>
+                        </span>
 
                 </div>
             </div>

@@ -18,11 +18,14 @@ export class UserService extends SuperService<User> {
     get data$(): Observable<any> {
         return this._data.asObservable();
     }
-    search(nom,prenom,email,idRole){
+    searchUsers(nom,prenom,email,idRole){
 
         return this.http.get(`${this.urlApi}/${this.controller}/Search/${nom}/${prenom}/${email}/${idRole}`)
 
     }
+
+
+    
 
     GetUsers(): Observable<any> {
         return this.http.get(`${this.urlApi}/${this.controller}/GetAll`)

@@ -20,6 +20,11 @@ export class ProfService extends SuperService<User>{
     get data$(): Observable<any> {
         return this._data.asObservable();
     }
+    searchProfs(nom,prenom,email){
+
+        return this.http.get(`${this.urlApi}/${this.controller}/Search/${nom}/${prenom}/${email}`)
+
+    }
 
     // getAll(): Observable<any> {
     //     return this.http.get(`${this.urlApi}/${this.controller}/GetAll`)

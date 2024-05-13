@@ -130,7 +130,7 @@ export class UsersComponent {
 
 
 
-        this.uow.users.search(this.nom, this.prenom, this.email, this.idRole).subscribe((res: any) => {
+        this.uow.users.searchUsers(this.nom, this.prenom, this.email, this.idRole).subscribe((res: any) => {
             this.recentTransactionsDataSource.data = res.query.result
         })
     }
