@@ -18,4 +18,21 @@ export class ClientService   extends SuperService<Client>{
 
     }
 
+    filter( nom : string , prenom : string , classId: number): Observable<any> {
+        if (nom === '') {
+            nom = '*'
+        }
+
+        if (prenom === '') {
+            prenom = '*'
+        }
+
+        if (!classId) {
+            classId = 0
+        }
+
+            return this.http.get(`${this.urlApi}/${this.controller}/Filter/${nom}/${prenom}/${classId}`)
+
+    }
+
 }

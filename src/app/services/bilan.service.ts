@@ -15,6 +15,19 @@ export class BilanService  extends SuperService<Bilan> {
         return this.http.get(`${this.urlApi}/${this.controller}/GetById/${id}`)
 
     }
+    filter(year , month) : Observable <any> {
+        if (year === '') {
+            year = '*'
+        }
+
+
+        if (month === '') {
+            month = '*'
+        }
+
+        return this.http.get(`${this.urlApi}/${this.controller}/Filter/${year}/${month}`)
+
+    }
 
 
 }

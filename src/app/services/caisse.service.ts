@@ -19,5 +19,18 @@ export class CaisseService extends SuperService<Caisse> {
     getOne1(id):Observable<any>{
         return this.http.get(`${this.urlApi}/${this.controller}/GetCaisse/${id}`)
     }
+    filter(year , month) : Observable <any> {
+        if (year === '') {
+            year = '*'
+        }
+
+
+        if (month === '') {
+            month = '*'
+        }
+
+        return this.http.get(`${this.urlApi}/${this.controller}/Filter/${year}/${month}`)
+
+    }
 
 }

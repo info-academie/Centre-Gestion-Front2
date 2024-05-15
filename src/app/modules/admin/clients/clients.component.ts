@@ -15,6 +15,9 @@ import { Subject, takeUntil } from 'rxjs';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { User } from 'app/models/User';
 import { RouterModule, Routes } from '@angular/router';
+import { MatModule } from 'app/mat.module';
+import { FormsModule } from '@angular/forms';
+import { Class } from 'app/models/Class';
 
 
 @Component({
@@ -25,7 +28,7 @@ import { RouterModule, Routes } from '@angular/router';
   styleUrls: ['./clients.component.scss'],
   imports: [CommonModule, MatButtonModule, MatIconModule,
     MatPaginatorModule,
-    MatMenuModule, MatDividerModule, NgApexchartsModule,
+    MatMenuModule, MatDividerModule,MatModule,FormsModule, NgApexchartsModule,
     MatTableModule, MatSortModule, NgClass,
     RouterModule,
     MatProgressBarModule, CurrencyPipe, DatePipe],
@@ -40,8 +43,14 @@ export class ClientsComponent {
     count = 0;
     paginatorEvent = new Subject<PageEvent>(/*{ pageIndex: 0, pageSize: 5, length: 0 }*/);
     list: User[] = [];
-    
 
+    isSearchBarOpened: boolean = false
+
+    nom : string = ''
+    prenom: string = ''
+    classId : number
+
+    classes: Class [] = []
     data: any;
     accountBalanceOptions: ApexOptions;
     recentTransactionsDataSource: MatTableDataSource<any> = new MatTableDataSource();
@@ -74,17 +83,27 @@ export class ClientsComponent {
     /**
      * On init
      */
+    openSearchBar() {
+        if(this.isSearchBarOpened){
+            this.isSearchBarOpened = false
+            this.ngOnInit()
+        }else(
+            this.isSearchBarOpened = true
+        )
+
+    }
     ngOnInit(): void {
         // Get the data
+
         this.uow.clients.getClients()
             .subscribe((data) => {
                 // Store the data
                 this.data = data;
                 // this.count = data.;
-
+                this.classes = data.classes;
 
                 // Store the table data
-                this.recentTransactionsDataSource.data = this.data;
+                this.recentTransactionsDataSource.data = this.data.allClients;
                 this.recentTransactionsDataSource.paginator = this.paginator;
                 // Prepare the chart data
 
@@ -120,5 +139,12 @@ export class ClientsComponent {
      */
     trackByFn(index: number, item: any): any {
         return item.id || index;
+    }
+    submit(){
+
+
+        this.uow.clients.filter(this.nom, this.prenom, this.classId).subscribe((res: any) => {
+            this.recentTransactionsDataSource.data = res
+        })
     }
 }

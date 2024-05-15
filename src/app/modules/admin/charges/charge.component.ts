@@ -13,6 +13,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Subject } from 'rxjs';
 import { User } from 'app/models/User';
 import { UowService } from 'app/services/uow.service';
+import { FormsModule } from '@angular/forms';
+import { MatModule } from 'app/mat.module';
 
 @Component({
   selector: 'app-charge',
@@ -22,6 +24,8 @@ import { UowService } from 'app/services/uow.service';
     MatMenuModule, MatDividerModule, NgApexchartsModule,
     MatTableModule, MatSortModule, NgClass,
     RouterModule,
+    MatModule,
+    FormsModule,
     MatProgressBarModule, CurrencyPipe, DatePipe],
   templateUrl: './charge.component.html',
   styleUrls: ['./charge.component.scss']
@@ -36,6 +40,26 @@ export class ChargeComponent {
     list: User[] = [];
     total:number;
 
+
+    designation=''
+    year:string=''
+    month:string=''
+
+    // classes: Class[] = []
+    months = [
+        'janvier',
+        'février',
+        'mars',
+        'avril',
+        'mai',
+        'juin',
+        'juillet',
+        'août',
+        'septembre',
+        'octobre',
+        'novembre',
+        'décembre'
+    ];
     data: any;
     accountBalanceOptions: ApexOptions;
     recentTransactionsDataSource: MatTableDataSource<any> = new MatTableDataSource();
@@ -60,7 +84,19 @@ export class ChargeComponent {
                 this.ngOnInit() : console.error("Error while deleting ")
         })
     }
+    isSearchBarOpened: boolean = false
+    openSearchBar() {
+        if(this.isSearchBarOpened){
+            this.isSearchBarOpened = false
+            this.designation=''
+            this.year=''
+            this.month=''
+            this.ngOnInit()
+        }else(
+            this.isSearchBarOpened = true
+        )
 
+    }
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
     // -----------------------------------------------------------------------------------------------------
@@ -116,6 +152,14 @@ export class ChargeComponent {
      */
     trackByFn(index: number, item: any): any {
         return item.id || index;
+    }
+
+    submit(){
+
+
+        this.uow.charges.filter(this.year, this.month, this.designation).subscribe((res: any) => {
+            this.recentTransactionsDataSource.data = res
+        })
     }
 
 }

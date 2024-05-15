@@ -11,7 +11,7 @@
 
 
                     <div class="mt-2">
-                        <h1 class="mt-6 mb-10 ml-1  text-[#8B7F87] text-3xl font-semibold"> Creation d'un fichier de
+                        <h1 class="mt-6 mb-10 ml-1  text-[#8B7F87] text-3xl font-semibold"> Création d'une fichier de
                             presence</h1>
                         <mat-form-field class="w-full mt-2 " [subscriptSizing]="'dynamic'">
                             <mat-label>Classes</mat-label>
@@ -64,12 +64,12 @@
                     </div>
                     <button class="ml-auto bg-gray-200" mat-button [matTooltip]="'Cancel'"
                         (click)="generateListPresence()">
-                        Generer liste de presence
+                        Générer liste de presence
                     </button>
 
-                    <br>    
+                    <br>
                     <!--
-    Here the code down 
+    Here the code down
 -->
                     <div *ngIf="isGenerated" class="mt-4">
                         <div class="overflow-x-auto">
@@ -81,9 +81,9 @@
                                             <th scope="col" class="text-[#8B7F87] ">
                                                 <input type="date"
                                                     (change)="registerPresence($event.target.value, '', col, 'date')"
-                                                    class="border border-gray-300 w-full  rounded-md px-2 py-1">
+                                                    class="w-full px-2 py-1 border border-gray-300 rounded-md">
                                             </th>
-                                            
+
                                         </ng-container>
                                     </tr>
 
@@ -93,18 +93,18 @@
                                         <ng-container *ngFor="let col of columns">
                                             <td>
                                                 <input type="checkbox"
-                                                    class="form-checkbox border border-gray-300 rounded"
+                                                    class="border border-gray-300 rounded form-checkbox"
                                                     (change)="registerPresence($event.target.checked, student.id, col, 'presence')">
                                             </td>
                                         </ng-container>
-                               
+
                                         <tr>
                                             <th scope="row" class="p-2 font-normal">Total</th>
                                             <ng-container *ngFor="let col of presenceArray">
                                                 <td>{{ calculateTotal(col) }}</td>
                                             </ng-container>
                                         </tr>
-                                        
+
 
                                 </tbody>
                             </table>

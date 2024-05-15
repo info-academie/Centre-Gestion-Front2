@@ -13,6 +13,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatModule } from 'app/mat.module';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-bilan',
@@ -21,6 +23,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatPaginatorModule,
     MatMenuModule, MatDividerModule, NgApexchartsModule,
     MatTableModule, MatSortModule, NgClass,
+    MatModule,
+    FormsModule,
     RouterModule,
     MatProgressBarModule, CurrencyPipe, DatePipe],
   templateUrl: './bilan.component.html',
@@ -49,6 +53,24 @@ export class BilanComponent {
      * Constructor
      */
 
+    year:string=''
+    month:string=''
+
+    // classes: Class[] = []
+    months = [
+        'janvier',
+        'février',
+        'mars',
+        'avril',
+        'mai',
+        'juin',
+        'juillet',
+        'août',
+        'septembre',
+        'octobre',
+        'novembre',
+        'décembre'
+    ];
 
     constructor(private uow: UowService) {
     }
@@ -64,7 +86,16 @@ export class BilanComponent {
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
     // -----------------------------------------------------------------------------------------------------
+    isSearchBarOpened: boolean = false
+    openSearchBar() {
+        if(this.isSearchBarOpened){
+            this.isSearchBarOpened = false
+            this.ngOnInit()
+        }else(
+            this.isSearchBarOpened = true
+        )
 
+    }
     /**
      * On init
      */
@@ -117,4 +148,15 @@ export class BilanComponent {
     trackByFn(index: number, item: any): any {
         return item.id || index;
     }
+    submit() {
+
+
+
+        this.uow.bilans.filter(this.year, this.month).subscribe((res: any) => {
+            this.recentTransactionsDataSource.data = res
+
+
+        })
+    }
+
 }

@@ -57,7 +57,13 @@ export class ProfsComponent {
      */
 
     openSearchBar() {
-        this.isSearchBarOpened ? this.isSearchBarOpened = false : this.isSearchBarOpened = true
+        if(this.isSearchBarOpened){
+            this.isSearchBarOpened = false
+            this.ngOnInit()
+        }else(
+            this.isSearchBarOpened = true
+        )
+
     }
 
     constructor(private profService: ProfService,

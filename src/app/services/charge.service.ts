@@ -16,4 +16,23 @@ export class ChargeService extends SuperService<Charge> {
         return this.http.get(`${this.urlApi}/${this.controller}/GetAll`)
 
     }
+
+    filter( year : string , month : string , designation: string): Observable<any> {
+        if (year === '') {
+            year = '*'
+        }
+
+
+        if (month === '') {
+            month = '*'
+        }
+
+
+        if (designation === '') {
+            designation = '*'
+        }
+
+            return this.http.get(`${this.urlApi}/${this.controller}/Filter/${year}/${month}/${designation}`)
+
+    }
 }

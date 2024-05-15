@@ -23,5 +23,23 @@ getStudentsOfClass(id:number): Observable<any> {
   return this.http.get(`${this.urlApi}/${this.controller}/getStudentsOfClass/${id}`)
 
 }
+filter( year : string , month : string , classId: number): Observable<any> {
+    if (year === '') {
+        year = '*'
+    }
+    console.log('year')
+    console.log(year)
+
+    if (month === '') {
+        month = '*'
+    }
+
+    if (!classId) {
+        classId = 0
+    }
+
+        return this.http.get(`${this.urlApi}/${this.controller}/Filter/${year}/${month}/${classId}`)
+
+}
 
 }

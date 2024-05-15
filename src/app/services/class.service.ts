@@ -13,5 +13,10 @@ export class ClassService  extends SuperService<Class>  {
 
     }
 
+    filter(nom: string, type: string, salle: string, profId: any, specialite: string): Observable<any> {
+        // Check each parameter and replace with '*' if empty
+
+        return this.http.get(`${this.urlApi}/${this.controller}/Filter/${nom}/${type}/${salle}/${profId}/${specialite}`);
+    }
 
 }

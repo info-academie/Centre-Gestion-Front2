@@ -61,7 +61,13 @@ export class UsersComponent {
     ) {
     }
     openSearchBar() {
-        this.isSearchBarOpened ? this.isSearchBarOpened = false : this.isSearchBarOpened = true
+        if(this.isSearchBarOpened){
+            this.isSearchBarOpened = false
+            this.ngOnInit()
+        }else(
+            this.isSearchBarOpened = true
+        )
+
     }
     delete(id) {
         console.log(id)
@@ -74,7 +80,7 @@ export class UsersComponent {
 
     choosenRole(id: number) {
         this.idRole = id
-    } 
+    }
 
 
 

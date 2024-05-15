@@ -78,7 +78,13 @@ export class RessourcesComponent {
     constructor(private uow: UowService) {
     }
     openSearchBar() {
-        this.isSearchBarOpened ? this.isSearchBarOpened = false : this.isSearchBarOpened = true
+        if(this.isSearchBarOpened){
+            this.isSearchBarOpened = false
+            this.ngOnInit()
+        }else(
+            this.isSearchBarOpened = true
+        )
+
     }
     delete(id) {
         console.log(id)
@@ -105,11 +111,11 @@ export class RessourcesComponent {
                 this.data = data;
                 // this.count = data.;
                 // Store the table data
-                this.recentTransactionsDataSource.data = this.data;
+                this.recentTransactionsDataSource.data = this.data.payments;
                 this.recentTransactionsDataSource.paginator = this.paginator;
                 // Prepare the chart data
 
-                this.total = this.data.reduce((accumulator, currentValue) => {
+                this.total = this.data.payments.reduce((accumulator, currentValue) => {
                     return accumulator + currentValue.montant;
                 }, 0);
 

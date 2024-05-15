@@ -13,6 +13,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatModule } from 'app/mat.module';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-caisse',
@@ -21,6 +23,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatPaginatorModule,
     MatMenuModule, MatDividerModule, NgApexchartsModule,
     MatTableModule, MatSortModule, NgClass,
+    MatModule,
+    FormsModule,
     RouterModule,
     MatProgressBarModule, CurrencyPipe, DatePipe],
   templateUrl: './caisse.component.html',
@@ -42,6 +46,25 @@ export class CaisseComponent {
     recentTransactionsTableColumns: string[] = [ 'Annee',
         'Mois','Actions'];
 
+
+    year:string=''
+    month:string=''
+
+    // classes: Class[] = []
+    months = [
+        'janvier',
+        'février',
+        'mars',
+        'avril',
+        'mai',
+        'juin',
+        'juillet',
+        'août',
+        'septembre',
+        'octobre',
+        'novembre',
+        'décembre'
+    ];
     //  'email', 'Matiere', 'actions'];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -49,7 +72,16 @@ export class CaisseComponent {
      * Constructor
      */
 
+    isSearchBarOpened: boolean = false
+    openSearchBar() {
+        if(this.isSearchBarOpened){
+            this.isSearchBarOpened = false
+            this.ngOnInit()
+        }else(
+            this.isSearchBarOpened = true
+        )
 
+    }
     constructor(private uow: UowService) {
     }
     delete(id) {
@@ -112,5 +144,16 @@ export class CaisseComponent {
      */
     trackByFn(index: number, item: any): any {
         return item.id || index;
+    }
+
+    submit() {
+
+
+
+        this.uow.caisses.filter(this.year, this.month).subscribe((res: any) => {
+            this.recentTransactionsDataSource.data = res
+
+
+        })
     }
 }

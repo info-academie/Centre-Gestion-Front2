@@ -13,6 +13,9 @@ import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/p
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { Subject } from 'rxjs';
 import { User } from 'app/models/User';
+import { Class } from 'app/models/Class';
+import { MatModule } from 'app/mat.module';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-presences',
@@ -20,15 +23,31 @@ import { User } from 'app/models/User';
   imports: [CommonModule, MatButtonModule, MatIconModule,
     MatPaginatorModule,
     MatMenuModule, MatDividerModule, NgApexchartsModule,
-    MatTableModule, MatSortModule, NgClass,
+    MatTableModule, MatSortModule, NgClass,MatModule,FormsModule,
     RouterModule,
     MatProgressBarModule, CurrencyPipe, DatePipe],
       templateUrl: './presences.component.html',
   styleUrls: ['./presences.component.scss']
 })
 export class PresencesComponent {
-
-
+    idClass : number
+classes:Class[]=[]
+    year:string=''
+    month:string=''
+    months = [
+        'janvier',
+        'février',
+        'mars',
+        'avril',
+        'mai',
+        'juin',
+        'juillet',
+        'août',
+        'septembre',
+        'octobre',
+        'novembre',
+        'décembre'
+    ];
     @ViewChild('recentTransactionsTable', { read: MatSort })
     recentTransactionsTableMatSort: MatSort;
 
@@ -51,7 +70,16 @@ export class PresencesComponent {
      * Constructor
      */
 
+    isSearchBarOpened: boolean = false
+    openSearchBar() {
+        if(this.isSearchBarOpened){
+            this.isSearchBarOpened = false
+            this.ngOnInit()
+        }else(
+            this.isSearchBarOpened = true
+        )
 
+    }
     constructor(private uow: UowService) {
     }
     delete(id) {
@@ -73,9 +101,10 @@ export class PresencesComponent {
     ngOnInit(): void {
         // Get the data
         this.uow.presences.getAll()
-            .subscribe((data) => {
+            .subscribe((data:any) => {
                 // Store the data
-                this.data = data;
+                this.data = data.presences;
+                this.classes=data.classes;
                 // this.count = data.;
                 // Store the table data
                 this.recentTransactionsDataSource.data = this.data;
@@ -115,5 +144,13 @@ export class PresencesComponent {
     trackByFn(index: number, item: any): any {
         return item.id || index;
     }
+    submit(){
+
+
+        this.uow.presences.filter(this.year, this.month, this.idClass).subscribe((res: any) => {
+            this.recentTransactionsDataSource.data = res
+        })
+    }
+
 }
 

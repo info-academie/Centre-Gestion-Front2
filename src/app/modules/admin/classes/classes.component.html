@@ -10,29 +10,134 @@
                     <div class="font-medium tracking-tight text-secondary">Gardez la trace de vos ressources</div>
                 </div>
                 <div class="flex items-center ml-6">
-                    <span
-                        class="ml-2 "
-                        [routerLink]="['/admin/class/create']"
-                    >
+                    <span class="ml-2 " [routerLink]="['/admin/class/create']">
 
-                    <button
-                        class="hidden ml-3 sm:inline-flex bg-[#2E849D]"
-                        mat-flat-button
-                        [color]="'primary'"
-                    >
-                        <mat-icon
-                            class="icon-size-5"
-                            [svgIcon]="'heroicons_solid:arrow-up-tray'"
-                        ></mat-icon>
-                        Créer
+                        <button class="hidden ml-3 sm:inline-flex bg-[#2E849D]" mat-flat-button [color]="'primary'">
+                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:arrow-up-tray'"></mat-icon>
+                            Créer
 
+                        </button>
+                    </span>
+
+
+                    <button class="ml-auto bg-gray-200" mat-button (click)="openSearchBar()">
+
+                        <mat-icon class="icon-size-5">search</mat-icon>
+                        Recherche
                     </button>
-                        </span>
 
                 </div>
             </div>
 
         </div>
+
+
+
+        <!-- serch bar-->
+        <div class="flex items-center justify-between w-full mt-[2rem] transition-opacity duration-500 ease-in-out"
+            *ngIf="isSearchBarOpened" [class.opacity-100]="isSearchBarOpened" [class.opacity-0]="!isSearchBarOpened">
+            <!-- Recent transactions table -->
+            <div class="flex flex-col flex-auto overflow-hidden shadow xl:col-span-2 bg-card rounded-2xl">
+                <div class="p-6">
+
+                    <div>
+                        <ng-container>
+                            <div class="flex ">
+                                <mat-form-field class="flex-auto ">
+                                    <mat-label>Nom</mat-label>
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+
+                                    <input matInput [(ngModel)]="nom">
+
+                                </mat-form-field>
+
+                                <mat-form-field class="flex-auto">
+                                    <mat-label>Type</mat-label>
+                                    <mat-select matNativeControl [(ngModel)]="type"
+                                        (selectionChange)="choosenType($event.value)">
+                                        <!-- <mat-option [value]="'all'">Choose</mat-option> -->
+                                        <ng-container *ngFor="let type of types">
+                                            <mat-option [value]="type">{{type}}</mat-option>
+                                        </ng-container>
+                                    </mat-select>
+                                </mat-form-field>
+
+                            </div>
+                        </ng-container>
+
+                        <!-- prenom -->
+                        <div class="">
+                            <mat-form-field class="w-full">
+                                <mat-label>Specialite</mat-label>
+                                <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                    [svgIcon]="'heroicons_solid:tag'"></mat-icon>
+
+                                <mat-select matNativeControl  [(ngModel)]="specialite"  >
+                                    <!-- <mat-option [value]="'all'">Choose</mat-option> -->
+                                    <ng-container *ngFor="let spec of specialityArray.choix">
+                                        <mat-option [value]="spec">{{spec}}</mat-option>
+                                    </ng-container>
+                                </mat-select>
+
+
+                            </mat-form-field>
+                        </div>
+
+                        <div class="">
+                            <mat-form-field class="w-full">
+                                <mat-label>Salle</mat-label>
+                                <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                    [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
+                                <input matInput [(ngModel)]="salle" [placeholder]="'email'" [spellcheck]="false">
+                            </mat-form-field>
+                        </div>
+
+                        <mat-form-field class="w-full">
+
+                            <mat-label>Prof</mat-label>
+
+                            <mat-select matNativeControl [(ngModel)]="profId"
+                             >
+                                <ng-container *ngFor="let prof of profs">
+                                    <mat-option [value]="prof.id">{{prof.nom}} {{prof.prenom}}</mat-option>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
+
+
+
+                        <button class="ml-2 bg-[#2E849D] text-white" mat-flat-button [matTooltip]="'Save'"
+                            (click)="submit()">
+                            Enregistrer
+                        </button>
+
+                        <button class="ml-auto bg-gray-200 " mat-flat-button [matTooltip]="'Save'"
+                            (click)="openSearchBar()">
+                            Cancel
+                        </button>
+                        <!-- </div> -->
+                    </div>
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
         <div class="flex items-center justify-between w-full mt-[2rem]">
             <!-- Recent transactions table -->
             <div class="flex flex-col flex-auto overflow-hidden shadow xl:col-span-2 bg-card rounded-2xl">
@@ -40,106 +145,65 @@
                     <div class="mr-4 text-lg font-medium leading-6 tracking-tight truncate">List of Classes</div>
                 </div>
                 <div class="mx-6 overflow-x-auto">
-                    <table
-                        class="w-full bg-transparent"
-                        mat-table
-                        matSort
-                        [dataSource]="recentTransactionsDataSource"
-                        [trackBy]="trackByFn"
-                        #recentTransactionsTable
-                    >
+                    <table class="w-full bg-transparent" mat-table matSort [dataSource]="recentTransactionsDataSource"
+                        [trackBy]="trackByFn" #recentTransactionsTable>
 
                         <!-- Transaction ID -->
                         <ng-container matColumnDef="id">
-                            <th
-                                mat-header-cell
-                                mat-sort-header
-                                *matHeaderCellDef
-                            >
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                                 ID
                             </th>
-                            <td
-                                mat-cell
-                                *matCellDef="let prof"
-                            >
-                                <span class="pr-6 text-sm font-medium text-secondary whitespace-nowrap">{{prof.id}}</span>
+                            <td mat-cell *matCellDef="let prof">
+                                <span
+                                    class="pr-6 text-sm font-medium text-secondary whitespace-nowrap">{{prof.id}}</span>
                             </td>
                         </ng-container>
 
                         <!-- Date -->
                         <ng-container matColumnDef="Nom">
-                            <th
-                                mat-header-cell
-                                mat-sort-header
-                                *matHeaderCellDef
-                            >
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                                 Name
                             </th>
-                            <td
-                                mat-cell
-                                *matCellDef="let class"
-                            >
+                            <td mat-cell *matCellDef="let class">
                                 <span class="pr-6 whitespace-nowrap">{{class.nom}} </span>
                             </td>
                         </ng-container>
 
                         <!-- Name -->
                         <ng-container matColumnDef="Prof">
-                            <th
-                                mat-header-cell
-                                mat-sort-header
-                                *matHeaderCellDef
-                            >
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                                 Prof
                             </th>
-                            <td
-                                mat-cell
-                                *matCellDef="let transaction"
-                            >
-                                <span class="pr-6 whitespace-nowrap">{{transaction.user.nom}} {{transaction.user.prenom}}</span>
+                            <td mat-cell *matCellDef="let transaction">
+                                <span class="pr-6 whitespace-nowrap">{{transaction.user.nom}}
+                                    {{transaction.user.prenom}}</span>
                             </td>
                         </ng-container>
 
                         <!-- Amount -->
                         <ng-container matColumnDef="Nombre">
-                            <th
-                                mat-header-cell
-                                mat-sort-header
-                                *matHeaderCellDef
-                            >
-                            Nombre d'étudiants
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                                Nombre d'étudiants
                             </th>
-                            <td
-                                mat-cell
-                                *matCellDef="let transaction"
-                            >
-                                <span class="pr-6 font-medium whitespace-nowrap"> class {{transaction.studentsCount }}</span>
+                            <td mat-cell *matCellDef="let transaction">
+                                <span class="pr-6 font-medium text-center whitespace-nowrap">
+                                    {{transaction.studentsCount }}</span>
                             </td>
                         </ng-container>
 
                         <!-- Status -->
                         <ng-container matColumnDef="Actions">
-                            <th
-                                mat-header-cell
-                                mat-sort-header
-                                *matHeaderCellDef
-                            >
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                                 Actions
                             </th>
-                            <td
-                                mat-cell
-                                *matCellDef="let transaction"
-                            >
+                            <td mat-cell *matCellDef="let transaction">
                                 <span class="pr-6 font-medium whitespace-nowrap">
-                                    <button mat-icon-button color="accent" [routerLink]="['/admin/class', transaction.id]">
-                                         <mat-icon>create</mat-icon>
-                                       </button>
-                                    <button
-                                        mat-icon-button
-                                        matTooltip="supprimer"
-                                        color="warn"
-                                        (click)="delete(transaction.id)"
-                                    >
+                                    <button mat-icon-button color="accent"
+                                        [routerLink]="['/admin/class', transaction.id]">
+                                        <mat-icon>create</mat-icon>
+                                    </button>
+                                    <button mat-icon-button matTooltip="supprimer" color="warn"
+                                        (click)="delete(transaction.id)">
                                         <mat-icon>delete_sweep</mat-icon>
                                     </button>
                                 </span>
@@ -148,41 +212,24 @@
 
                         <!-- Footer -->
                         <ng-container matColumnDef="recentOrdersTableFooter">
-                            <td
-                                class="px-0 py-6 border-0"
-                                mat-footer-cell
-                                *matFooterCellDef
-                                colspan="6"
-                            >
+                            <td class="px-0 py-6 border-0" mat-footer-cell *matFooterCellDef colspan="6">
                                 <!-- <button mat-stroked-button></button> -->
                             </td>
                         </ng-container>
 
                         <tbody>
-                            <tr
-                                mat-header-row
-                                *matHeaderRowDef="recentTransactionsTableColumns"
-                            ></tr>
-                            <tr
-                                class="h-16 order-row"
-                                mat-row
-                                *matRowDef="let row; columns: recentTransactionsTableColumns;"
-                            ></tr>
-                            <tr
-                                class="h-16 border-0"
-                                mat-footer-row
-                                *matFooterRowDef="['recentOrdersTableFooter']"
-                            ></tr>
+                            <tr mat-header-row *matHeaderRowDef="recentTransactionsTableColumns"></tr>
+                            <tr class="h-16 order-row" mat-row
+                                *matRowDef="let row; columns: recentTransactionsTableColumns;"></tr>
+                            <tr class="h-16 border-0" mat-footer-row *matFooterRowDef="['recentOrdersTableFooter']">
+                            </tr>
                         </tbody>
                     </table>
 
                     <!-- Footer -->
                     <mat-paginator
                         class="z-10 border-b sm:absolute sm:inset-x-0 sm:bottom-0 sm:border-t sm:border-b-0 bg-gray-50 dark:bg-transparent"
-                        [pageSize]="5"
-                        [pageSizeOptions]="[5, 10, 25, 100]"
-                        [showFirstLastButtons]="true"
-                    >
+                        [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" [showFirstLastButtons]="true">
                     </mat-paginator>
 
                 </div>
