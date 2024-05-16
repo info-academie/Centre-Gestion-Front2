@@ -90,12 +90,6 @@ export class EditBilanComponent {
 
     update() {
         console.log(this.myForm.value)
-        // Extracting date part
-        // this.myForm.get('day').setValue((this.date.getDate()).toString());
-
-        // this.myForm.get('month').setValue(this.date.toLocaleString('fr-FR', { month: 'long' }));
-
-        // this.myForm.get('year').setValue((this.date.getFullYear()).toString());
 
         console.log(this.myForm.value)
         this.uow.bilans.put(this.id, this.myForm.value).subscribe((res) => {

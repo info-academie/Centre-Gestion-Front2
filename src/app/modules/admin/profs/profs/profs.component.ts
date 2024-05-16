@@ -88,12 +88,12 @@ export class ProfsComponent {
      */
     ngOnInit(): void {
         // Get the data
-        this.uow.users.getAll()
+        this.uow.profs.getAll()
             .subscribe((data) => {
                 // Store the data
                 this.data = data;
                 // this.count = data.count;
-                let profArray=this.data.filter(e=>e.idRole===1)
+                let profArray=this.data.allProfs
 
                 // Store the table data
                 this.recentTransactionsDataSource.data =profArray;

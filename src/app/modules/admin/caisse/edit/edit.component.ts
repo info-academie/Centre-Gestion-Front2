@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatModule } from 'app/mat.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UowService } from 'app/services/uow.service';
 import { Caisse } from 'app/models/Caisse';
 import { CaisseService } from 'app/services/caisse.service';
@@ -12,7 +12,7 @@ import { CaisseService } from 'app/services/caisse.service';
   standalone: true,
   imports: [CommonModule, FormsModule,
     ReactiveFormsModule, MatModule,
-   MatFormFieldModule,
+   MatFormFieldModule,RouterLink
 
 ],  templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
@@ -21,7 +21,7 @@ export class EditCaisseComponent {
     id: any = 0;
     myForm: FormGroup;
     caisse: Caisse = new Caisse(); // Initialize the user object
-
+   bilanId=0
     months = [
         'janvier',
         'février',
@@ -53,8 +53,10 @@ response:any;
         this.id = parseInt(this.route.snapshot.paramMap.get('id'));
         this.uow.caisses.getOne1(this.id).subscribe((e:any)=>{
             this.caisse=e.caisse;
-
             this.response=e
+            console.log("============")
+            console.log(e.bilan[0].id)
+            this.bilanId=e.bilan[0].id
             this.date = new Date(e.year, this.getMonthNumber(e.month), e.day);
             this.createForm(); // Create the form after the user data is available
         })

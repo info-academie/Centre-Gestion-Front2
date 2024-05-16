@@ -62,7 +62,8 @@ export class CreateClientComponent {
     submit(Client){
      this.uow.clients.post(Client).subscribe((res:any)=>{
         console.log(res)
-        if(res.m==="success"){
+
+        if(res.message==="Success"){
             this.router.navigate(['/admin/clients']);
 
         }

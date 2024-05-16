@@ -5,14 +5,14 @@ import { MatModule } from 'app/mat.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Caisse } from 'app/models/Caisse';
 import { CaisseService } from 'app/services/caisse.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UowService } from 'app/services/uow.service';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatModule,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatModule,RouterLink,
     MatFormFieldModule],
 
   templateUrl: './create.component.html',
@@ -24,7 +24,7 @@ export class CreateCaisseComponent {
     id: any = 0;
     isProf: boolean = false;
     myForm: FormGroup;
-
+    bilanId=0
     // classes: Class[] = []
     months = [
         'janvier',
@@ -93,6 +93,8 @@ export class CreateCaisseComponent {
         this.uow.caisses.post(caisse).subscribe((res: any) => {
             this.isResult = true
             this.result = res
+            this.bilanId=res.bilan.id
+
             console.log(res)
             if (res.msg === "exist") {
                 this.isResult=false;

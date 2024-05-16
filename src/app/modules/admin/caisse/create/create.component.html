@@ -55,7 +55,9 @@
                                             class="text-[1rem] text-[#918ec9]">
                                             {{result.charges}} </b></h2>
                                     <h2 class="text-[1.1rem]">Le Bilan : <b class="text-[1rem] text-[#918ec9]">
-                                            {{result.sum}} </b></h2>
+                                            {{result.sum}}      <a class="ml-1  hover:underline text-[#918ec9] cursor-pointer"
+                                            [routerLink]="['/admin/bilan', bilanId]"> Visiter
+                                                </a> </b></h2>
 
                                 </div>
                             </ng-container>

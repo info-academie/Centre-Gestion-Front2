@@ -18,7 +18,7 @@
             </fuse-alert>
 
             <!-- Sign Up form -->
-            <form class="mt-8" [formGroup]="signUpForm" #signUpNgForm="ngForm">
+            <form class="mt-6" [formGroup]="signUpForm" #signUpNgForm="ngForm">
 
                 <!-- Name field -->
                 <mat-form-field class="w-full">
@@ -84,7 +84,7 @@
 
                 <!-- Password field -->
                 <mat-form-field class="w-full">
-                    <mat-label>MOt de passe</mat-label>
+                    <mat-label>Mot de passe</mat-label>
                     <input id="password" matInput type="password" [formControlName]="'password'" #passwordField>
                     <mat-error *ngIf="signUpForm.get('password')?.invalid">
                         <span *ngIf="signUpForm.get('password')?.hasError('required')">
@@ -109,12 +109,12 @@
 
 
                 <!-- Submit button -->
-                <button class="w-full mt-6 text-white bg-[#2E849D]
+                <button class="w-full mt-2 text-white bg-[#2E849D]
                  fuse-mat-button-large" mat-flat-button [color]="'primary'"
                     [disabled]="signUpForm.disabled" (click)="signUp()">
                     <span *ngIf="!signUpForm.disabled">
-                        Créez votre compte gratuit                   
-                    
+                        Créez votre compte gratuit
+
                     </span>
                     <mat-progress-spinner *ngIf="signUpForm.disabled" [diameter]="24"
                         [mode]="'indeterminate'"></mat-progress-spinner>
@@ -152,13 +152,13 @@
                 <div>Bienvenue À</div>
                 <div>Notre Communauté</div>
             </div>
-            <div class="mt-6 text-lg leading-6 tracking-tight text-gray-400">
+            <div class="mt-6 text-lg leading-6 tracking-tight text-gray-300">
                 Fuse aide les développeurs à créer des tableaux de bord organisés et bien codés, remplis de modules magnifiques et riches.
                 Rejoignez-nous et commencez à créer votre application dès aujourd'hui.
             </div>
             <div class="flex items-center mt-8">
-             
-             
+
+
             </div>
         </div>
     </div>
