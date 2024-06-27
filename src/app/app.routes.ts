@@ -41,7 +41,7 @@ export const appRoutes: Route[] = [
     // Admin routes
     {
         path: '',
-        
+         canActivate: [AuthGuard],
         component: LayoutComponent,
         resolve: {
             initialData: initialDataResolver
@@ -52,8 +52,7 @@ export const appRoutes: Route[] = [
     }
     
     // Redirect empty path to '/example'
-   // canActivate: [AuthGuard],
-    //canActivateChild: [AuthGuard],
+
     // {path: '', pathMatch : 'full', redirectTo: 'example'},
     /*
     canActivate: [AuthGuard],

@@ -24,6 +24,13 @@ export class AuthService extends SuperService<User>
         super('account');
     }
 
+    isLoggedIn(): boolean {
+        // Here you should check if the user is logged in
+        // For example, you can check if there's a valid token in local storage
+        const token = localStorage.getItem('token');
+        return token != null;
+      }
+    
 
     setToken(token: string): void {
         this.token = token;

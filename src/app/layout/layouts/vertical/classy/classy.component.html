@@ -37,12 +37,10 @@
             </div>
             <div class="flex flex-col items-center justify-center w-full mt-6">
                 <div class="w-full overflow-hidden font-medium leading-normal text-center whitespace-nowrap text-ellipsis">
-                  <!--  {{user.nom}} {{user.prenom}}-->
-                  Leonardo Marki
+                   {{user.nom}} {{user.prenom}}
                 </div>
                 <div class="w-full mt-0.5 whitespace-nowrap text-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
-                  <!--  {{user.email}} -->
-                  Maron@gmail.com
+                   {{user.email}}
                 </div>
             </div>
         </div>
@@ -66,17 +64,26 @@
         </button>
         <!-- Components -->
         <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
-            <languages></languages>
-            <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
-            <search [appearance]="'bar'"></search>
-            <shortcuts></shortcuts>
-            <messages></messages>
-            <button
-                class="lg:hidden"
-                mat-icon-button
-               >
-                <mat-icon [svgIcon]="'heroicons_outline:chat-bubble-left-right'"></mat-icon>
-            </button>
+
+
+
+                    <button
+            mat-icon-button
+            (click)="profileOptions()"
+            #messagesOrigin>
+
+            <mat-icon>person</mat-icon>
+        </button>
+
+        <div *ngIf="isShowen"
+        class="absolute right-0 z-40 w-48 mt-2 origin-top-right bg-white rounded-md shadow-lg top-12 ring-1 ring-black ring-opacity-5 focus:outline-none"
+        >
+            <a href="/profile" class="block px-4 py-2 text-gray-800 hover:text-[#2E849D] ">Profile</a>
+            <a href="/logout" (click)="logout()" class="block px-4 py-2 text-gray-800 hover:text-[#2E849D] ">Logout</a>
+          </div>
+
+
+
         </div>
     </div>
 

@@ -98,12 +98,12 @@ export class AuthSignInComponent implements OnInit {
                         this.showAlert = false
                         if(res.user.Role===3){
                             this.router.navigate(['admin/users']);
-                            
+
                         }else{
                             this.router.navigate(['admin/profs']);
-                            
+
                         }
-                   
+
                     }
 
                 }

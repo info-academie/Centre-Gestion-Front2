@@ -34,12 +34,17 @@ import { CreateComponent } from './profs/create/create.component';
 import { PresencesComponent } from './presences/presences.component';
 import { CreatePresenceComponent } from './presences/create/create.component';
 import { EditPresenceComponent } from './presences/edit/edit.component';
+import { ProfileComponent } from './profile/profile.component';
 // import { CreateProfComponent } from './profs/create-prof/create-prof.component';
 
 export default [
     {
         path     : '',
         component: ExampleComponent,
+    },
+    {
+        path     : 'profile',
+        component: ProfileComponent,
     },
     {
         path     : 'profs',
