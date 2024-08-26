@@ -1,5 +1,4 @@
-const URL_PROD = `http://localhost:5122`;
-
+const URL_PROD = `https://centre-api.infoacademie.com`;
 
 export const environment = {
   production: true,
