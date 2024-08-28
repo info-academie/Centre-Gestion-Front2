@@ -20,6 +20,7 @@ export class EditUserComponent {
     user: User = new User(); // Initialize the user object
     roles: Role[] = []
     isProf:boolean=false;
+    commingPwd='';
 
     constructor(
       private uow: UowService,
@@ -38,7 +39,7 @@ export class EditUserComponent {
         this.user = res; // Update the user object with the fetched data
         console.log(this.user);
         this.createForm(); // Create the form after the user data is available
-        this.user.idRole===1?this.isProf=true:this.isProf=false;
+        this.user.idRole===3?this.isProf=true:this.isProf=false;
 
         console.log("second")
       });
@@ -68,7 +69,7 @@ export class EditUserComponent {
     }
     choosenRole(id: number) {
         // const selectedRoleId = this.myForm.get('idRole').value;
-        id===1?
+        id===3?
         this.isProf=true:
         this.isProf=false;
 
@@ -81,6 +82,9 @@ export class EditUserComponent {
           }
 
     update(user){
+        if (user.password==='') {
+            user.password=this.commingPwd
+        }
       this.uow.users.put(this.id,user).subscribe((res)=>{
           if(res.m==="success"){
               this.router.navigate(['/admin/users']);
