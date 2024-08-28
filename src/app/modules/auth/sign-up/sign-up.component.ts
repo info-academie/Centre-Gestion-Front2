@@ -88,7 +88,7 @@ export class SignUpComponent implements OnInit {
             ],
             matiere: null,
             address: ['', Validators.required],
-            idRole: 4
+            idRole: 2
         },
         );
     }
@@ -126,26 +126,24 @@ export class SignUpComponent implements OnInit {
 
                         // put a dialog here
                     } else {
-                        this._router.navigateByUrl('login');
+                        console.log(res)
+                        localStorage.setItem('token', res.token);
+                        const userData = JSON.stringify(res.user); // Convert to JSON string
+                        localStorage.setItem('user', userData);
+                        this.showAlert = false
+                        if(res.user.Role===2){
+                            this._router.navigate(['admin/users']);
+
+                        }else{
+                            this._router.navigate(['admin/profs']);
+
+                        }
+
+
                     }
                     // Navigate to the confirmation required page
                 }
-                // () => {
-                //     // Re-enable the form
-                //     this.signUpForm.enable();
 
-                //     // Reset the form
-                //     this.signUpForm.reset();
-
-                //     // Set the alert
-                //     this.alert = {
-                //         type: 'error',
-                //         message: 'Something went wrong, please try again.',
-                //     };
-
-                //     // Show the alert
-                //     this.showAlert = true;
-                // },
             );
     }
     openDialog(): void {

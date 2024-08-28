@@ -34,9 +34,9 @@
                 </ng-container>
 
                 <!-- Basic -->
-                <ng-container *ngIf="item.type === 'basic' && user.idRole===4 || user.idRole===3 " >
-                    <!-- this one  -->
-                <ng-container *ngIf="!(user.idRole===4 && item.id==='Users')">
+                <ng-container *ngIf="item.type === 'basic' && user.idRole===1 || user.idRole===2 " >
+                    <!-- this one 4 is admin -->
+                <ng-container *ngIf="!(user.idRole===1 && item.id==='Users')">
                     <fuse-vertical-navigation-basic-item
                         [item]="item"
                         [name]="name"></fuse-vertical-navigation-basic-item>

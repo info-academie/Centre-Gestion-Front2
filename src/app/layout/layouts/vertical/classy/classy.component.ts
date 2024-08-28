@@ -21,6 +21,7 @@ import { ShortcutsComponent } from 'app/layout/common/shortcuts/shortcuts.compon
 import { UserComponent } from 'app/layout/common/user/user.component';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'app/core/auth/auth.service';
+import { UowService } from 'app/services/uow.service';
 
 @Component({
     selector: 'classy-layout',
@@ -42,11 +43,13 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
     constructor(
         private _activatedRoute: ActivatedRoute,
         private router: Router,
+        private uow : UowService,
         private _navigationService: NavigationService,
         private _userService: UserService,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
         private _fuseNavigationService: FuseNavigationService,
-        private _authService: AuthService
+        private _authService: AuthService,
+
 
     ) {
     }
@@ -89,8 +92,16 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
         const localStorage1 = localStorage.getItem('user');
         if (localStorage1) {
             this.user = JSON.parse(localStorage1)
-        }
+            this.uow.users.getOne(this.user.id).subscribe((res)=>{
+                this.user=res
+            })        }
+        this.uow.users.user$.subscribe((res)=>{
+            if (res!==null) {
 
+                this.user=res
+            }
+            console.log("hell")
+           })
         this._navigationService.navigation$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((navigation: Navigation) => {

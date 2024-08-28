@@ -1,11 +1,13 @@
-const URL_PROD = `https://centre-api.infoacademie.com`;
+ const URL_PROD = `https://centre-api.infoacademie.com`;
 
-export const environment = {
-  production: true,
+ export const environment = {
+   production: true,
   apiUrl : `${URL_PROD}/api`,
   url : `${URL_PROD}`,
   mobile : false
-};
+ };
+
+
 
 const IMAGE = 'assets/404.png';
 

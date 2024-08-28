@@ -10,6 +10,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 export class UserService extends SuperService<User> {
 
     private _data: BehaviorSubject<any> = new BehaviorSubject(null);
+    user$= new BehaviorSubject<User | null>(null);
 
     constructor() {
         super('user');
@@ -25,7 +26,7 @@ export class UserService extends SuperService<User> {
     }
 
 
-    
+
 
     GetUsers(): Observable<any> {
         return this.http.get(`${this.urlApi}/${this.controller}/GetAll`)

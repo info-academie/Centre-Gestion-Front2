@@ -13,13 +13,13 @@ export class AppComponent
 {
     constructor(private authService: AuthService, private router: Router) {}
 
-    ngOnInit(): void {
-        const token = localStorage.getItem('token');
-        if (token) {
-            this.authService.setToken(token);
-        } else {
-            // Redirect to login page if no token found
-            this.router.navigate(['/login']);
-        }
-    }
+    // ngOnInit(): void {
+    //     const token = localStorage.getItem('token');
+    //     if (token) {
+    //         this.authService.setToken(token);
+    //     } else {
+    //         // Redirect to login page if no token found
+    //         this.router.navigate(['/login']);
+    //     }
+    // }
 }

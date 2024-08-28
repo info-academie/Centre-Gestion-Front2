@@ -22,7 +22,24 @@
     <!-- <h1 class="font-bold text-transparent lg:text-2xl bg-clip-text bg-gradient-to-r from-pink-300 to-purple-400">Info Academie Centre</h1> -->
 
         <div class=" lg:flex lg:flex-1 lg:justify-end">
-          <a href="/login" class="text-sm font-semibold leading-6 text-gray-900 lg:text-xl">Log in <span aria-hidden="true">&rarr;</span></a>
+
+
+
+
+             <button mat-icon-button *ngIf="isAuthenticated" (click)="profileOptions()" #messagesOrigin>
+
+                <mat-icon>person</mat-icon>
+            </button>
+
+            <div *ngIf="isShowen"
+                class="absolute right-0 z-40 w-48 mt-2 origin-top-right bg-white rounded-md shadow-lg top-12 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <a href="/admin/profile" class="block px-4 py-2 text-gray-800 hover:text-[#2E849D] ">Profile</a>
+                <a  (click)="logout()"
+                    class="block px-4 hover:cursor-pointer py-2 text-gray-800 hover:text-[#2E849D] ">Logout</a>
+            </div>
+
+
+          <a *ngIf="!isAuthenticated" href="/login" class="text-sm font-semibold leading-6 text-gray-900 lg:text-xl">Log in <span aria-hidden="true">&rarr;</span></a>
         </div>
       </nav>
     </header>
@@ -37,16 +54,20 @@
           <h1 class="p-3  text-4xl  font-bold leading-10  line-height-[3rem] text-gray-900 sm:text-5xl md:text-6xl lg:text-[3.5rem]">Gérez tous dans une seule application</h1>
           <p class="max-w-2xl mt-3 text-lg leading-8 text-gray-600 sm:text-base md:text-lg lg:text-xl">Libérez le potentiel caché des données de votre application de chat pour personnaliser les expériences, augmenter les ventes et établir une relation client durable.</p>
           <div class="flex flex-col sm:flex-row items-center justify-center mt-10 gap-4 max-w-2xl text-[2rem] sm:gap-x-6">
-            <a href="/admin/profs" class="w-full sm:w-auto bg-[#2E849D] px-[0.8rem] py-[0.8rem] text-xl font-semibold text-white
-            shadow-sm focus:outline-none focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-indigo-600">Commencer</a>
-            <a href="#" class="mt-4 sm:mt-0 font-semibold leading-6 text-xl text-[#2E849D]">Apprendre plus <span aria-hidden="true">→</span></a>
+
+
+            <button class="text-red hover:before:bg-redborder-red-500 relative h-[50px] w-40 overflow-hidden border
+             border-[#2E849D] bg-white px-3 text-[#2E849D] shadow-2xl transition-all before:absolute
+             before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0
+              before:bg-[#2E849D] before:transition-all before:duration-500 hover:text-white
+               hover:shadow-[#2E849D] hover:before:left-0 hover:before:w-full"><a href="/admin/profs" class="relative z-10 flex items-center justify-center text-xl font-semibold">Commencer</a></button>
+
+            <a href="/admin/profs" class="mt-4 sm:mt-0 font-semibold leading-6 text-xl text-[#2E849D]">Apprendre plus <span aria-hidden="true">→</span></a>
           </div>
         </div>
 
       </div>
-      <!-- <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
-        <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#5B9EB2] to-[#a19dd1] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
-      </div> -->
+
     </div>
 
     <div class="relative w-full h-full px-8 isolate md:mt-[-13rem] pt-14 lg:px-8">

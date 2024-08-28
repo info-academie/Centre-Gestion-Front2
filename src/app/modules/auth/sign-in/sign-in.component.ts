@@ -96,7 +96,7 @@ export class AuthSignInComponent implements OnInit {
                         const userData = JSON.stringify(res.user); // Convert to JSON string
                         localStorage.setItem('user', userData);
                         this.showAlert = false
-                        if(res.user.Role===3){
+                        if(res.user.Role===2){
                             this.router.navigate(['admin/users']);
 
                         }else{
